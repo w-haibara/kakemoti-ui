@@ -1,30 +1,42 @@
+<script setup>
+// This starter template is using Vue 3 <script setup> SFCs
+// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+import drawflow from "@/components/drawflowComponent.vue";
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <drawflow />
 </template>
 
 <style>
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+html {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+}
+body {
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  margin: 20px;
+  padding: 0;
+  background: #181818;
+  color: #f7f7f7;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  margin: 0px;
+  border-radius: 8px;
+  border: 1px solid #494949;
 }
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.el-main {
+  padding: 0;
 }
 </style>
