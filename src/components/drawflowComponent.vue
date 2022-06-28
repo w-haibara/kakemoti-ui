@@ -56,6 +56,8 @@ import {
   readonly,
   ref,
 } from "vue";
+import startNode from "./nodes/startNode.vue";
+import endNode from "./nodes/endNode.vue";
 import taskNode from "./nodes/taskNode.vue";
 import parallelNode from "./nodes/parallelNode.vue";
 import mapNode from "./nodes/mapNode.vue";
@@ -70,6 +72,20 @@ export default {
   setup() {
     const listNodes = readonly([
       {
+        name: "Start",
+        color: "#49494970",
+        item: "startNode",
+        input: 0,
+        output: 1,
+      },
+      {
+        name: "End",
+        color: "#49494970",
+        item: "endNode",
+        input: 1,
+        output: 0,
+      },
+      {
         name: "Task",
         color: "#49494970",
         item: "taskNode",
@@ -81,14 +97,14 @@ export default {
         color: "#49494970",
         item: "parallelNode",
         input: 1,
-        output: 1,
+        output: 2,
       },
       {
         name: "Map",
         color: "#49494970",
         item: "mapNode",
         input: 1,
-        output: 1,
+        output: 2,
       },
       {
         name: "Pass",
@@ -109,21 +125,21 @@ export default {
         color: "#49494970",
         item: "choiceNode",
         input: 1,
-        output: 1,
+        output: 2,
       },
       {
         name: "Succeed",
         color: "#49494970",
         item: "succeedNode",
         input: 1,
-        output: 1,
+        output: 0,
       },
       {
         name: "Fail",
         color: "#49494970",
         item: "failNode",
         input: 1,
-        output: 1,
+        output: 0,
       },
     ]);
 
@@ -227,6 +243,8 @@ export default {
       );
       editor.value.start();
 
+      editor.value.registerNode("startNode", startNode, {}, {});
+      editor.value.registerNode("endNode", endNode, {}, {});
       editor.value.registerNode("taskNode", taskNode, {}, {});
       editor.value.registerNode("parallelNode", parallelNode, {}, {});
       editor.value.registerNode("mapNode", mapNode, {}, {});
