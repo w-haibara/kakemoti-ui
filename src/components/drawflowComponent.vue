@@ -56,34 +56,74 @@ import {
   readonly,
   ref,
 } from "vue";
-import NodeOne from "./nodes/nodeOne.vue";
-import NodeTwo from "./nodes/nodeTwo.vue";
-import NodeThree from "./nodes/nodeThree.vue";
+import taskNode from "./nodes/taskNode.vue";
+import parallelNode from "./nodes/parallelNode.vue";
+import mapNode from "./nodes/mapNode.vue";
+import passNode from "./nodes/passNode.vue";
+import waitNode from "./nodes/waitNode.vue";
+import choiceNode from "./nodes/choiceNode.vue";
+import succeedNode from "./nodes/succeedNode.vue";
+import failNode from "./nodes/failNode.vue";
 
 export default {
   name: "drawflowComponent",
   setup() {
     const listNodes = readonly([
       {
-        name: "Get/Post",
+        name: "Task",
         color: "#49494970",
-        item: "NodeOne",
-        input: 0,
+        item: "taskNode",
+        input: 1,
         output: 1,
       },
       {
-        name: "Script",
-        color: "blue",
-        item: "NodeTwo",
+        name: "Parallel",
+        color: "#49494970",
+        item: "parallelNode",
         input: 1,
-        output: 2,
+        output: 1,
       },
       {
-        name: "console.log",
-        color: "#ff9900",
-        item: "NodeThree",
+        name: "Map",
+        color: "#49494970",
+        item: "mapNode",
         input: 1,
-        output: 0,
+        output: 1,
+      },
+      {
+        name: "Pass",
+        color: "#49494970",
+        item: "passNode",
+        input: 1,
+        output: 1,
+      },
+      {
+        name: "Wait",
+        color: "#49494970",
+        item: "waitNode",
+        input: 1,
+        output: 1,
+      },
+      {
+        name: "Choice",
+        color: "#49494970",
+        item: "choiceNode",
+        input: 1,
+        output: 1,
+      },
+      {
+        name: "Succeed",
+        color: "#49494970",
+        item: "succeedNode",
+        input: 1,
+        output: 1,
+      },
+      {
+        name: "Fail",
+        color: "#49494970",
+        item: "failNode",
+        input: 1,
+        output: 1,
       },
     ]);
 
@@ -187,49 +227,14 @@ export default {
       );
       editor.value.start();
 
-      editor.value.registerNode("NodeOne", NodeOne, {}, {});
-      editor.value.registerNode("NodeTwo", NodeTwo, {}, {});
-      editor.value.registerNode("NodeThree", NodeThree, {}, {});
-
-      editor.value.import({
-        drawflow: {
-          Home: {
-            data: {
-              5: {
-                id: 5,
-                name: "NodeTwo",
-                data: { script: "(req,res) => {\n console.log(req);\n}" },
-                class: "NodeTwo",
-                html: "NodeTwo",
-                typenode: "vue",
-                inputs: {
-                  input_1: { connections: [{ node: "6", input: "output_1" }] },
-                },
-                outputs: {
-                  output_1: { connections: [] },
-                  output_2: { connections: [] },
-                },
-                pos_x: 1000,
-                pos_y: 117,
-              },
-              6: {
-                id: 6,
-                name: "NodeOne",
-                data: { url: "localhost/add", method: "post" },
-                class: "NodeOne",
-                html: "NodeOne",
-                typenode: "vue",
-                inputs: {},
-                outputs: {
-                  output_1: { connections: [{ node: "5", output: "input_1" }] },
-                },
-                pos_x: 137,
-                pos_y: 89,
-              },
-            },
-          },
-        },
-      });
+      editor.value.registerNode("taskNode", taskNode, {}, {});
+      editor.value.registerNode("parallelNode", parallelNode, {}, {});
+      editor.value.registerNode("mapNode", mapNode, {}, {});
+      editor.value.registerNode("passNode", passNode, {}, {});
+      editor.value.registerNode("waitNode", waitNode, {}, {});
+      editor.value.registerNode("choiceNode", choiceNode, {}, {});
+      editor.value.registerNode("succeedNode", succeedNode, {}, {});
+      editor.value.registerNode("failNode", failNode, {}, {});
     });
 
     return {
