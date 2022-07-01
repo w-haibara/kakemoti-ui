@@ -253,6 +253,35 @@ export default {
       editor.value.registerNode("choiceNode", choiceNode, {}, {});
       editor.value.registerNode("succeedNode", succeedNode, {}, {});
       editor.value.registerNode("failNode", failNode, {}, {});
+
+      editor.value.import({
+        drawflow: {
+          Home: {
+            data: {
+              1: {
+                id: 1,
+                name: "taskNode",
+                data: {},
+                class: "taskNode",
+                html: "taskNode",
+                typenode: "vue",
+                inputs: {
+                  input_1: {
+                    connections: [],
+                  },
+                },
+                outputs: {
+                  output_1: {
+                    connections: [],
+                  },
+                },
+                pos_x: 190,
+                pos_y: 272,
+              },
+            },
+          },
+        },
+      });
     });
 
     return {
