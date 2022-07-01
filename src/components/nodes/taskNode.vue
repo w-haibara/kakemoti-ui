@@ -1,8 +1,4 @@
 <template>
   <p>Task</p>
-  <div>aa</div>
-  <div>aa</div>
-  <div>aa</div>
-  <div>aa</div>
-  <div>aa</div>
+  <v-btn>button</v-btn>
 </template>
