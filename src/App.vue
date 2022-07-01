@@ -1,27 +1,30 @@
 <template>
   <v-app>
-    <v-navigation-drawer width="100%" permanent>
+    <v-navigation-drawer app permanent width="130">
       <v-list
         nav
         color="transparent"
         v-for="node in listNodes"
         :key="node"
         :data-node="node.item"
-        class="drag-drawflow"
       >
         <v-list-item class="node">
-          <v-btn block variant="outlined" v-on:click="dropNode(node.item)">
+          <v-btn
+            block
+            variant="outlined"
+            v-on:click="this.addNodeToDrawFlow(node.item, 190, 270)"
+          >
             {{ node.name }}
           </v-btn>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app>
-      <!-- -->
+    <v-app-bar app absolute dense flat color="white">
+      <v-toolbar-title>Workflow editor</v-toolbar-title>
     </v-app-bar>
 
-    <v-main id="drawflow" />
+    <v-main app id="drawflow" />
 
     <v-footer app>
       <!-- -->
@@ -229,11 +232,6 @@ export default {
       dialogVisible,
       dialogData,
     };
-  },
-  methods: {
-    dropNode: function (name) {
-      this.addNodeToDrawFlow(name, 190, 270);
-    },
   },
 };
 </script>
