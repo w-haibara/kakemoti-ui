@@ -22,6 +22,8 @@
 
     <v-app-bar app absolute dense flat color="white">
       <v-toolbar-title>Workflow editor</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn variant="outlined" v-on:click="alertExportData"> Export </v-btn>
     </v-app-bar>
 
     <v-main app id="drawflow" />
@@ -232,6 +234,13 @@ export default {
       dialogVisible,
       dialogData,
     };
+  },
+  methods: {
+    alertExportData: function () {
+      this.exportEditor();
+      alert(this.dialogVisible);
+      alert(JSON.stringify(this.dialogData));
+    },
   },
 };
 </script>
