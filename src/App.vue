@@ -6,12 +6,14 @@
         color="transparent"
         v-for="node in listNodes"
         :key="node"
-        draggable="true"
         :data-node="node.item"
-        @dragstart="drag($event)"
         class="drag-drawflow"
       >
-        <v-list-item :title="node.name" class="node" />
+        <v-list-item class="node">
+          <v-btn block variant="outlined" v-on:click="dropNode(node.item)">
+            {{ node.name }}
+          </v-btn>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -19,7 +21,7 @@
       <!-- -->
     </v-app-bar>
 
-    <v-main id="drawflow" @drop="drop($event)" @dragover="allowDrop($event)" />
+    <v-main id="drawflow" />
 
     <v-footer app>
       <!-- -->
@@ -53,7 +55,7 @@ import failNode from "@/components/nodes/failNode.vue";
 
 export default {
   name: "drawflowComponent",
-  setup() {
+  data() {
     const listNodes = readonly([
       {
         name: "Start",
@@ -140,47 +142,6 @@ export default {
       dialogVisible.value = true;
     }
 
-    const drag = (ev) => {
-      if (ev.type === "touchstart") {
-        mobile_item_selec = ev.target
-          .closest(".drag-drawflow")
-          .getAttribute("data-node");
-      } else {
-        ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
-      }
-    };
-    const drop = (ev) => {
-      if (ev.type === "touchend") {
-        var parentdrawflow = document
-          .elementFromPoint(
-            mobile_last_move.touches[0].clientX,
-            mobile_last_move.touches[0].clientY
-          )
-          .closest("#drawflow");
-        if (parentdrawflow != null) {
-          addNodeToDrawFlow(
-            mobile_item_selec,
-            mobile_last_move.touches[0].clientX,
-            mobile_last_move.touches[0].clientY
-          );
-        }
-        mobile_item_selec = "";
-      } else {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("node");
-        addNodeToDrawFlow(data, ev.clientX, ev.clientY);
-      }
-    };
-    const allowDrop = (ev) => {
-      ev.preventDefault();
-    };
-
-    let mobile_item_selec = "";
-    let mobile_last_move = null;
-    function positionMobile(ev) {
-      mobile_last_move = ev;
-    }
-
     function addNodeToDrawFlow(name, pos_x, pos_y) {
       pos_x =
         pos_x *
@@ -212,13 +173,6 @@ export default {
     }
 
     onMounted(() => {
-      var elements = document.getElementsByClassName("drag-drawflow");
-      for (var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener("touchend", drop, false);
-        elements[i].addEventListener("touchmove", positionMobile, false);
-        elements[i].addEventListener("touchstart", drag, false);
-      }
-
       const id = document.getElementById("drawflow");
       editor.value = new Drawflow(
         id,
@@ -260,7 +214,7 @@ export default {
                   },
                 },
                 pos_x: 190,
-                pos_y: 272,
+                pos_y: 270,
               },
             },
           },
@@ -271,12 +225,15 @@ export default {
     return {
       exportEditor,
       listNodes,
-      drag,
-      drop,
-      allowDrop,
+      addNodeToDrawFlow,
       dialogVisible,
       dialogData,
     };
+  },
+  methods: {
+    dropNode: function (name) {
+      this.addNodeToDrawFlow(name, 190, 270);
+    },
   },
 };
 </script>
