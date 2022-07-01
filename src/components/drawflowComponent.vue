@@ -296,12 +296,13 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #494949;
+  border-bottom: 1px solid #897373;
 }
 .container {
   min-height: calc(100vh - 100px);
@@ -331,7 +332,7 @@ export default {
   width: 100%;
   height: 100%;
   text-align: initial;
-  background: #2b2c30;
+  background: white;
   background-size: 20px 20px;
   background-image: radial-gradient(#494949 1px, transparent 1px);
 }
