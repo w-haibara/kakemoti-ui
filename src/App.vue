@@ -4,16 +4,14 @@
       <v-list
         nav
         color="transparent"
-        v-for="n in listNodes"
-        :key="n"
+        v-for="node in listNodes"
+        :key="node"
         draggable="true"
-        :data-node="n.item"
+        :data-node="node.item"
         @dragstart="drag($event)"
         class="drag-drawflow"
       >
-        <v-list-item class="node" :style="`background: ${n.color}`">
-          {{ n.name }}
-        </v-list-item>
+        <v-list-item :title="node.name" class="node" />
       </v-list>
     </v-navigation-drawer>
 
