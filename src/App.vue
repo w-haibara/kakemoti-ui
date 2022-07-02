@@ -22,6 +22,17 @@ import choiceNode from "@/components/nodes/choiceNode.vue";
 import succeedNode from "@/components/nodes/succeedNode.vue";
 import failNode from "@/components/nodes/failNode.vue";
 
+const Vue = { version: 3, h, render };
+
+const editor = shallowRef({});
+const internalInstance = getCurrentInstance();
+internalInstance.appContext.app._context.config.globalProperties.$df = editor;
+
+const exportedJsonDialog = ref(false);
+const dialogVisible = ref(false);
+const dialogData = ref({});
+const dialogString = ref({});
+
 const listNodes = readonly([
   {
     name: "Start",
@@ -94,14 +105,6 @@ const listNodes = readonly([
     output: 0,
   },
 ]);
-
-const editor = shallowRef({});
-const dialogVisible = ref(false);
-const dialogData = ref({});
-const dialogString = ref({});
-const Vue = { version: 3, h, render };
-const internalInstance = getCurrentInstance();
-internalInstance.appContext.app._context.config.globalProperties.$df = editor;
 
 function exportEditor() {
   dialogData.value = editor.value.export();
@@ -197,17 +200,44 @@ onMounted(() => {
 
       <v-navigation-drawer app permanent width="130">
         <v-list-item>
-          <v-btn
-            block
-            variant="flat"
-            color="primary"
-            v-on:click="exportEditor"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exportedJsonModal"
-          >
-            Export
-          </v-btn>
+          <div class="text-center">
+            <v-dialog v-model="exportedJsonDialog">
+              <template v-slot:activator="{ attrs }">
+                <v-btn
+                  block
+                  variant="flat"
+                  color="primary"
+                  v-on:click="exportEditor"
+                  class="btn btn-primary"
+                  v-bind="attrs"
+                  @click.stop="exportedJsonDialog = true"
+                >
+                  Export
+                </v-btn>
+              </template>
+
+              <v-card width="700">
+                <v-card-title> Exported JSON </v-card-title>
+
+                <v-card-text>
+                  <pre>{{ dialogString }}</pre>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="exportedJsonDialog = false"
+                  >
+                    Close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
         </v-list-item>
 
         <v-divider></v-divider>
@@ -228,31 +258,6 @@ onMounted(() => {
       </v-navigation-drawer>
     </v-main>
   </v-app>
-
-  <div
-    class="modal fade"
-    id="exportedJsonModal"
-    tabindex="-1"
-    aria-labelledby="exportedJsonModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exportedJsonModalLabel">Exported JSON</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <pre>{{ dialogString }}</pre>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <style scoped>
