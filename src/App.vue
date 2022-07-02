@@ -197,39 +197,38 @@ onMounted(() => {
 
 <template>
   <v-app>
-    <v-navigation-drawer app permanent width="130">
-      <v-list
-        nav
-        color="transparent"
-        v-for="node in listNodes"
-        :key="node"
-        :data-node="node.item"
-      >
-        <v-list-item class="node">
+    <v-main app>
+      <div id="drawflow" />
+
+      <v-navigation-drawer app permanent width="130">
+        <v-list-item>
           <v-btn
             block
-            variant="outlined"
-            v-on:click="addNodeToDrawFlow(node.item, 190, 270)"
+            variant="flat"
+            color="primary"
+            v-on:click="alertExportData"
           >
-            {{ node.name }}
+            Export
           </v-btn>
         </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
 
-    <v-app-bar app absolute dense flat color="white">
-      <v-toolbar-title>Workflow editor</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn variant="outlined" color="primary" v-on:click="alertExportData">
-        Export
-      </v-btn>
-    </v-app-bar>
+        <v-divider></v-divider>
 
-    <v-main app id="drawflow" />
-
-    <v-footer app>
-      <!-- -->
-    </v-footer>
+        <v-list nav color="transparent">
+          <div v-for="node in listNodes" :key="node" :data-node="node.item">
+            <v-list-item class="node">
+              <v-btn
+                block
+                variant="outlined"
+                v-on:click="addNodeToDrawFlow(node.item, 190, 270)"
+              >
+                {{ node.name }}
+              </v-btn>
+            </v-list-item>
+          </div>
+        </v-list>
+      </v-navigation-drawer>
+    </v-main>
   </v-app>
 </template>
 
