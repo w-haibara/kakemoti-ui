@@ -1,3 +1,27 @@
+<script setup>
+import { ref, onMounted, getCurrentInstance } from "vue";
+const nodeName = ref("Task");
+const dialog = ref(false);
+
+const internalInstance = getCurrentInstance();
+const editor =
+  internalInstance.appContext.app._context.config.globalProperties.$df;
+
+const nodeDataVar1 = ref("aaa");
+const nodeData = ref({
+  key1: nodeDataVar1,
+});
+
+function updateNodeData() {
+  nodeData.value.key1 = nodeDataVar1.value;
+  editor.value.updateNodeDataFromId(1, nodeData.value);
+}
+
+onMounted(() => {
+  updateNodeData();
+});
+</script>
+
 <template>
   <v-layout>
     <v-row justify="space-around" no-gutters>
@@ -18,10 +42,15 @@
               </v-btn>
             </template>
 
-            <v-card>
-              <v-card-title> Settings </v-card-title>
+            <v-card width="700">
+              <v-card-title> {{ nodeName }} </v-card-title>
 
-              <v-card-text> aaaaaaaaaaa </v-card-text>
+              <v-card-text>
+                <v-text-field
+                  label="Regular"
+                  v-model="nodeDataVar1"
+                ></v-text-field>
+              </v-card-text>
 
               <v-divider></v-divider>
 
@@ -29,6 +58,14 @@
                 <v-spacer></v-spacer>
                 <v-btn color="primary" text @click="dialog = false">
                   Close
+                </v-btn>
+                <v-btn
+                  color="warning"
+                  text
+                  @click="dialog = false"
+                  v-on:click="updateNodeData"
+                >
+                  Update
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -38,14 +75,3 @@
     </v-row>
   </v-layout>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      nodeName: "Task",
-      dialog: false,
-    };
-  },
-};
-</script>
