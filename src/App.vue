@@ -23,7 +23,9 @@
     <v-app-bar app absolute dense flat color="white">
       <v-toolbar-title>Workflow editor</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn variant="outlined" v-on:click="alertExportData"> Export </v-btn>
+      <v-btn variant="outlined" color="primary" v-on:click="alertExportData">
+        Export
+      </v-btn>
     </v-app-bar>
 
     <v-main app id="drawflow" />
