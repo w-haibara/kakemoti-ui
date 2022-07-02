@@ -98,12 +98,14 @@ const listNodes = readonly([
 const editor = shallowRef({});
 const dialogVisible = ref(false);
 const dialogData = ref({});
+const dialogString = ref({});
 const Vue = { version: 3, h, render };
 const internalInstance = getCurrentInstance();
 internalInstance.appContext.app._context.config.globalProperties.$df = editor;
 
 function exportEditor() {
   dialogData.value = editor.value.export();
+  dialogString.value = JSON.stringify(dialogData.value, null, 2);
   dialogVisible.value = true;
 }
 
@@ -135,13 +137,6 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
     name,
     "vue"
   );
-}
-
-function alertExportData() {
-  exportEditor();
-  if (dialogVisible.value) {
-    alert(JSON.stringify(dialogData.value, null, 2));
-  }
 }
 
 onMounted(() => {
@@ -206,7 +201,10 @@ onMounted(() => {
             block
             variant="flat"
             color="primary"
-            v-on:click="alertExportData"
+            v-on:click="exportEditor"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exportedJsonModal"
           >
             Export
           </v-btn>
@@ -230,6 +228,31 @@ onMounted(() => {
       </v-navigation-drawer>
     </v-main>
   </v-app>
+
+  <div
+    class="modal fade"
+    id="exportedJsonModal"
+    tabindex="-1"
+    aria-labelledby="exportedJsonModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exportedJsonModalLabel">Exported JSON</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <pre>{{ dialogString }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
