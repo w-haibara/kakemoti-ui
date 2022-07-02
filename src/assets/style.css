@@ -1,41 +1,44 @@
 .drawflow .drawflow-node {
-    border-radius: 8px;
-    background: white;
-    border: 2px solid #494949;
-    color: black;
-    min-width: 250px;
+  border-radius: 8px;
+  background: white;
+  border: 2px solid #494949;
+  color: black;
+  min-width: 250px;
 }
 
 .drawflow .drawflow-node.selected {
-    background: #D1D1D1;
-    border: 2px solid #494949;
+  background: white;
+  border: 2px solid rgb(var(--v-theme-primary));
 }
 
-.drawflow .drawflow-node .input, .drawflow .drawflow-node .output {
-    background: #181818;
-    border: 3px solid #494949;
-    width: 20px;
-    height: 20px;
-    margin-top: 14px;
-    margin-bottom: 14px;
+.drawflow .drawflow-node .input,
+.drawflow .drawflow-node .output {
+  background: #181818;
+  border: 3px solid #494949;
+  width: 20px;
+  height: 20px;
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
 
 .drawflow .drawflow-node .input {
-    left: -45px;
+  left: -45px;
 }
 
 .drawflow .drawflow-node .output {
-    right: -27px;
+  right: -27px;
 }
 
 .parent-node .drawflow-delete {
-    display: none !important;
+  display: none !important;
 }
 
-.drawflow .drawflow-node .drawflow_content_node input, .drawflow .drawflow-node .drawflow_content_node .el-select, .drawflow .drawflow-node .drawflow_content_node button {
-    width: 100%; 
+.drawflow .drawflow-node .drawflow_content_node input,
+.drawflow .drawflow-node .drawflow_content_node .el-select,
+.drawflow .drawflow-node .drawflow_content_node button {
+  width: 100%;
 }
 
 .el-drawer__body {
-    color: black;
+  color: black;
 }
