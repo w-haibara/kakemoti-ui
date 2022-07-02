@@ -241,7 +241,7 @@ export default {
     alertExportData: function () {
       this.exportEditor();
       if (this.dialogVisible) {
-        alert(JSON.stringify(this.dialogData));
+        alert(JSON.stringify(this.dialogData, null, 2));
       }
     },
   },
