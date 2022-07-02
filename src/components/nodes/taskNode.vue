@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted, getCurrentInstance } from "vue";
+import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
+const nodeId = ref(1);
 const nodeName = ref("Task");
 const dialog = ref(false);
 
@@ -14,10 +15,17 @@ const nodeData = ref({
 
 function updateNodeData() {
   nodeData.value.key1 = nodeDataVar1.value;
-  editor.value.updateNodeDataFromId(1, nodeData.value);
+  editor.value.updateNodeDataFromId(nodeId.value, nodeData.value);
 }
 
-onMounted(() => {
+const setNodeId = function (id) {
+  nodeId.value = id;
+  editor.value.removeListener("nodeCreated", setNodeId);
+};
+editor.value.on("nodeCreated", setNodeId);
+
+onMounted(async () => {
+  await nextTick;
   updateNodeData();
 });
 </script>
