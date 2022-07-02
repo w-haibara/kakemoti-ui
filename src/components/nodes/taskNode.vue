@@ -5,7 +5,35 @@
         <span>Task</span>
       </v-col>
       <v-col>
-        <v-btn variant="outlined" size="x-small"> Edit </v-btn>
+        <div class="text-center">
+          <v-dialog v-model="dialog" width="500">
+            <template v-slot:activator="{ attrs }">
+              <v-btn
+                variant="outlined"
+                size="x-small"
+                v-bind="attrs"
+                @click.stop="dialog = true"
+              >
+                Edit
+              </v-btn>
+            </template>
+
+            <v-card>
+              <v-card-title> Settings </v-card-title>
+
+              <v-card-text> aaaaaaaaaaa </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="dialog = false">
+                  Close
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
       </v-col>
     </v-row>
   </v-layout>
@@ -16,6 +44,7 @@ export default {
   data() {
     return {
       nodeName: "Task",
+      dialog: false,
     };
   },
 };
