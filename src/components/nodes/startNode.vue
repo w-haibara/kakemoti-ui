@@ -1,3 +1,13 @@
+<script>
+import baseNode from "./baseNode.vue";
+
+export default {
+  components: {
+    baseNode,
+  },
+};
+</script>
+
 <template>
-  <p>Start</p>
+  <base-node></base-node>
 </template>

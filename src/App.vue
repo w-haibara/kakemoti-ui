@@ -162,20 +162,83 @@ onMounted(() => {
   editor.value.registerNode("succeedNode", succeedNode, {}, {});
   editor.value.registerNode("failNode", failNode, {}, {});
 
+  /*
   editor.value.import({
     drawflow: {
       Home: {
         data: {
-          1: {
-            id: 1,
+          3: {
+            id: 3,
+            name: "startNode",
+            data: {
+              key1: "aaa",
+            },
+            class: "startNode",
+            html: "startNode",
+            typenode: "vue",
+            inputs: {},
+            outputs: {
+              output_1: {
+                connections: [
+                  {
+                    node: "4",
+                    output: "input_1",
+                  },
+                ],
+              },
+            },
+            pos_x: 24,
+            pos_y: 8,
+          },
+          4: {
+            id: 4,
             name: "taskNode",
-            data: {},
+            data: {
+              key1: "aaa",
+            },
             class: "taskNode",
             html: "taskNode",
             typenode: "vue",
             inputs: {
               input_1: {
-                connections: [],
+                connections: [
+                  {
+                    node: "3",
+                    input: "output_1",
+                  },
+                ],
+              },
+            },
+            outputs: {
+              output_1: {
+                connections: [
+                  {
+                    node: "5",
+                    output: "input_1",
+                  },
+                ],
+              },
+            },
+            pos_x: 223,
+            pos_y: 50,
+          },
+          5: {
+            id: 5,
+            name: "taskNode",
+            data: {
+              key1: "aaa",
+            },
+            class: "taskNode",
+            html: "taskNode",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "4",
+                    input: "output_1",
+                  },
+                ],
               },
             },
             outputs: {
@@ -183,13 +246,14 @@ onMounted(() => {
                 connections: [],
               },
             },
-            pos_x: 190,
-            pos_y: 270,
+            pos_x: 417,
+            pos_y: 102,
           },
         },
       },
     },
   });
+  */
 });
 </script>
 
