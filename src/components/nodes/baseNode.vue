@@ -3,6 +3,7 @@ import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
 
 const internalInstance = getCurrentInstance();
 const uid = ref("base-node-" + internalInstance.uid.toString());
+const dialogId = ref(uid.value + "-dialog-card");
 const editor =
   internalInstance.appContext.app._context.config.globalProperties.$df;
 
@@ -31,11 +32,20 @@ function updateNodeData() {
   editor.value.updateNodeDataFromId(nodeId.value, nodeData.value);
 }
 
+async function openEditDialog() {
+  dialog.value = true;
+
+  await nextTick;
+  document.getElementById(dialogId.value).focus();
+}
+
 onMounted(async () => {
   await nextTick;
 
   getCurrentNodeInfo();
   updateNodeData();
+
+  openEditDialog;
 });
 </script>
 
@@ -54,7 +64,7 @@ onMounted(async () => {
                   variant="outlined"
                   size="x-small"
                   v-bind="attrs"
-                  @click.stop="dialog = true"
+                  @click.stop="openEditDialog()"
                 >
                   Edit
                 </v-btn>
@@ -64,17 +74,26 @@ onMounted(async () => {
                 <v-card-title> {{ nodeName }} </v-card-title>
 
                 <v-card-text>
-                  <v-text-field
-                    label="Regular"
-                    v-model="nodeDataVar1"
-                  ></v-text-field>
+                  <v-form>
+                    <v-container>
+                      <v-text-field
+                        label="Regular"
+                        v-model="nodeDataVar1"
+                      ></v-text-field>
+                    </v-container>
+                  </v-form>
                 </v-card-text>
 
                 <v-divider></v-divider>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" text @click="dialog = false">
+                  <v-btn
+                    v-bind:id="dialogId"
+                    color="primary"
+                    text
+                    @click="dialog = false"
+                  >
                     Close
                   </v-btn>
                   <v-btn
