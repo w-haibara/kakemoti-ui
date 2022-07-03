@@ -142,6 +142,47 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
   );
 }
 
+function listemKeyEvent() {
+  const elm = document.getElementById("v-main");
+  elm.focus();
+  elm.addEventListener("keydown", (e) => {
+    if (!e.repeat) {
+      switch (e.key) {
+        case "1":
+          console.log("pressed: 1");
+          break;
+        case "2":
+          console.log("pressed: 2");
+          break;
+        case "3":
+          console.log("pressed: 3");
+          break;
+        case "4":
+          console.log("pressed: 4");
+          break;
+        case "5":
+          console.log("pressed: 5");
+          break;
+        case "6":
+          console.log("pressed: 6");
+          break;
+        case "7":
+          console.log("pressed: 7");
+          break;
+        case "8":
+          console.log("pressed: 8");
+          break;
+        case "9":
+          console.log("pressed: 9");
+          break;
+        case "0":
+          console.log("pressed: 0");
+          break;
+      }
+    }
+  });
+}
+
 onMounted(() => {
   const id = document.getElementById("drawflow");
   editor.value = new Drawflow(
@@ -247,12 +288,14 @@ onMounted(() => {
     },
   };
   editor.value.import(inputJson);
+
+  listemKeyEvent();
 });
 </script>
 
 <template>
   <v-app>
-    <v-main app>
+    <v-main app id="v-main" tabindex="0">
       <div id="drawflow" />
 
       <v-navigation-drawer app permanent width="130">
