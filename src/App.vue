@@ -147,37 +147,12 @@ function listemKeyEvent() {
   elm.focus();
   elm.addEventListener("keydown", (e) => {
     if (!e.repeat) {
-      switch (e.key) {
-        case "1":
-          console.log("pressed: 1");
-          break;
-        case "2":
-          console.log("pressed: 2");
-          break;
-        case "3":
-          console.log("pressed: 3");
-          break;
-        case "4":
-          console.log("pressed: 4");
-          break;
-        case "5":
-          console.log("pressed: 5");
-          break;
-        case "6":
-          console.log("pressed: 6");
-          break;
-        case "7":
-          console.log("pressed: 7");
-          break;
-        case "8":
-          console.log("pressed: 8");
-          break;
-        case "9":
-          console.log("pressed: 9");
-          break;
-        case "0":
-          console.log("pressed: 0");
-          break;
+      if (e.key === "Enter") {
+        exportEditor;
+        exportedJsonDialog.value = true;
+      } else if (e.key in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]) {
+        const num = parseInt(e.key, 10);
+        addNodeToDrawFlow(listNodes[num > 0 ? num - 1 : 9].name, 190, 270);
       }
     }
   });
