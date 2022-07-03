@@ -44,7 +44,7 @@ onMounted(async () => {
     <v-layout>
       <v-row justify="space-around" no-gutters>
         <v-col>
-          <span> {{ nodeId }} {{ nodeName }} </span>
+          <span> {{ nodeName }} </span>
         </v-col>
         <v-col>
           <div class="text-center">

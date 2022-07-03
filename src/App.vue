@@ -37,70 +37,70 @@ const listNodes = readonly([
   {
     name: "Start",
     color: "white",
-    item: "startNode",
+    item: "Start",
     input: 0,
     output: 1,
   },
   {
     name: "End",
     color: "white",
-    item: "endNode",
+    item: "End",
     input: 1,
     output: 0,
   },
   {
     name: "Task",
     color: "white",
-    item: "taskNode",
+    item: "Task",
     input: 1,
     output: 1,
   },
   {
     name: "Parallel",
     color: "white",
-    item: "parallelNode",
+    item: "Parallel",
     input: 1,
     output: 2,
   },
   {
     name: "Map",
     color: "white",
-    item: "mapNode",
+    item: "Map",
     input: 1,
     output: 2,
   },
   {
     name: "Pass",
     color: "white",
-    item: "passNode",
+    item: "Pass",
     input: 1,
     output: 1,
   },
   {
     name: "Wait",
     color: "white",
-    item: "waitNode",
+    item: "Wait",
     input: 1,
     output: 1,
   },
   {
     name: "Choice",
     color: "white",
-    item: "choiceNode",
+    item: "Choice",
     input: 1,
     output: 2,
   },
   {
     name: "Succeed",
     color: "white",
-    item: "succeedNode",
+    item: "Succeed",
     input: 1,
     output: 0,
   },
   {
     name: "Fail",
     color: "white",
-    item: "failNode",
+    item: "Fail",
     input: 1,
     output: 0,
   },
@@ -151,16 +151,16 @@ onMounted(() => {
   );
   editor.value.start();
 
-  editor.value.registerNode("startNode", startNode, {}, {});
-  editor.value.registerNode("endNode", endNode, {}, {});
-  editor.value.registerNode("taskNode", taskNode, {}, {});
-  editor.value.registerNode("parallelNode", parallelNode, {}, {});
-  editor.value.registerNode("mapNode", mapNode, {}, {});
-  editor.value.registerNode("passNode", passNode, {}, {});
-  editor.value.registerNode("waitNode", waitNode, {}, {});
-  editor.value.registerNode("choiceNode", choiceNode, {}, {});
-  editor.value.registerNode("succeedNode", succeedNode, {}, {});
-  editor.value.registerNode("failNode", failNode, {}, {});
+  editor.value.registerNode("Start", startNode, {}, {});
+  editor.value.registerNode("End", endNode, {}, {});
+  editor.value.registerNode("Task", taskNode, {}, {});
+  editor.value.registerNode("Parallel", parallelNode, {}, {});
+  editor.value.registerNode("Map", mapNode, {}, {});
+  editor.value.registerNode("Pass", passNode, {}, {});
+  editor.value.registerNode("Wait", waitNode, {}, {});
+  editor.value.registerNode("Choice", choiceNode, {}, {});
+  editor.value.registerNode("Succeed", succeedNode, {}, {});
+  editor.value.registerNode("Fail", failNode, {}, {});
 
   /*
   editor.value.import({
