@@ -2,7 +2,7 @@
 import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
 
 const internalInstance = getCurrentInstance();
-const uid = ref(internalInstance.uid.toString());
+const uid = ref("base-node-" + internalInstance.uid.toString());
 const editor =
   internalInstance.appContext.app._context.config.globalProperties.$df;
 
