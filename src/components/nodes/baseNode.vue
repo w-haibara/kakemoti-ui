@@ -3,7 +3,7 @@ import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
 
 const internalInstance = getCurrentInstance();
 const uid = ref("base-node-" + internalInstance.uid.toString());
-const dialogId = ref(uid.value + "-dialog-close-btn");
+const dialogCloseBtnId = ref(uid.value + "-dialog-close-btn");
 const editor =
   internalInstance.appContext.app._context.config.globalProperties.$df;
 
@@ -36,7 +36,14 @@ async function openEditDialog() {
   dialog.value = true;
 
   await nextTick;
-  document.getElementById(dialogId.value).focus();
+  document.getElementById(dialogCloseBtnId.value).focus();
+}
+
+async function closeEditDialog() {
+  dialog.value = false;
+
+  await nextTick;
+  document.getElementById("v-main").focus();
 }
 
 onMounted(async () => {
@@ -89,17 +96,17 @@ onMounted(async () => {
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
-                    v-bind:id="dialogId"
+                    v-bind:id="dialogCloseBtnId"
                     color="primary"
                     text
-                    @click="dialog = false"
+                    @click="closeEditDialog"
                   >
                     Close
                   </v-btn>
                   <v-btn
                     color="warning"
                     text
-                    @click="dialog = false"
+                    @click="closeEditDialog"
                     v-on:click="updateNodeData"
                   >
                     Update
