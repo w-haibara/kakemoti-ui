@@ -48,7 +48,7 @@ onMounted(async () => {
         </v-col>
         <v-col>
           <div class="text-center">
-            <v-dialog v-model="dialog" width="500">
+            <v-dialog v-model="dialog" persistent width="500">
               <template v-slot:activator="{ attrs }">
                 <v-btn
                   variant="outlined"
