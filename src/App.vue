@@ -10,6 +10,7 @@ import {
   render,
   readonly,
   ref,
+  nextTick,
 } from "vue";
 import startNode from "@/components/nodes/startNode.vue";
 import endNode from "@/components/nodes/endNode.vue";
@@ -28,10 +29,11 @@ const editor = shallowRef({});
 const internalInstance = getCurrentInstance();
 internalInstance.appContext.app._context.config.globalProperties.$df = editor;
 
-const exportedJsonDialog = ref(false);
-const dialogVisible = ref(false);
-const dialogData = ref({});
-const dialogString = ref({});
+const exportDialog = ref(false);
+const exportDialogId = ref("export-dialog");
+const exportDialogVisible = ref(false);
+const exportDialogData = ref({});
+const exportDialogString = ref({});
 
 const listNodes = readonly([
   {
@@ -107,9 +109,23 @@ const listNodes = readonly([
 ]);
 
 function exportEditor() {
-  dialogData.value = editor.value.export();
-  dialogString.value = JSON.stringify(dialogData.value, null, 2);
-  dialogVisible.value = true;
+  exportDialogData.value = editor.value.export();
+  exportDialogString.value = JSON.stringify(exportDialogData.value, null, 2);
+  exportDialogVisible.value = true;
+}
+
+async function openExportDialog() {
+  exportDialog.value = true;
+
+  await nextTick;
+  document.getElementById(exportDialogId.value).focus();
+}
+
+async function closeExportDialog() {
+  exportDialog.value = false;
+
+  await nextTick;
+  document.getElementById("v-main").focus();
 }
 
 function addNodeToDrawFlow(name, pos_x, pos_y) {
@@ -142,20 +158,24 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
   );
 }
 
+function keyEventListener(event) {
+  if (!event.repeat) {
+    if (event.key === "Enter") {
+      exportEditor();
+      openExportDialog();
+    } else if (
+      event.key in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    ) {
+      const num = parseInt(event.key, 10);
+      addNodeToDrawFlow(listNodes[num > 0 ? num - 1 : 9].name, 190, 270);
+    }
+  }
+}
+
 function listenKeyEvent() {
   const elm = document.getElementById("v-main");
   elm.focus();
-  elm.addEventListener("keydown", (e) => {
-    if (!e.repeat) {
-      if (e.key === "Enter") {
-        exportEditor;
-        exportedJsonDialog.value = true;
-      } else if (e.key in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]) {
-        const num = parseInt(e.key, 10);
-        addNodeToDrawFlow(listNodes[num > 0 ? num - 1 : 9].name, 190, 270);
-      }
-    }
-  });
+  elm.addEventListener("keydown", keyEventListener, false);
 }
 
 onMounted(() => {
@@ -275,7 +295,11 @@ onMounted(() => {
 
       <v-navigation-drawer app permanent width="130">
         <v-list-item>
-          <v-dialog v-model="exportedJsonDialog">
+          <v-dialog
+            v-bind:id="exportDialogId"
+            v-model="exportDialog"
+            tabindex="0"
+          >
             <template v-slot:activator="{ attrs }">
               <v-btn
                 block
@@ -283,7 +307,7 @@ onMounted(() => {
                 color="primary"
                 v-on:click="exportEditor"
                 v-bind="attrs"
-                @click.stop="exportedJsonDialog = true"
+                @click="openExportDialog"
               >
                 Export
               </v-btn>
@@ -293,14 +317,14 @@ onMounted(() => {
               <v-card-title> Exported JSON </v-card-title>
 
               <v-card-text>
-                <pre>{{ dialogString }}</pre>
+                <pre>{{ exportDialogString }}</pre>
               </v-card-text>
 
               <v-divider></v-divider>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="exportedJsonDialog = false">
+                <v-btn color="primary" text @click="closeExportDialog">
                   Close
                 </v-btn>
               </v-card-actions>
