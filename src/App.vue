@@ -142,7 +142,7 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
   );
 }
 
-function listemKeyEvent() {
+function listenKeyEvent() {
   const elm = document.getElementById("v-main");
   elm.focus();
   elm.addEventListener("keydown", (e) => {
@@ -264,7 +264,7 @@ onMounted(() => {
   };
   editor.value.import(inputJson);
 
-  listemKeyEvent();
+  listenKeyEvent();
 });
 </script>
 
