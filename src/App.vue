@@ -257,44 +257,37 @@ onMounted(() => {
 
       <v-navigation-drawer app permanent width="130">
         <v-list-item>
-          <div class="text-center">
-            <v-dialog v-model="exportedJsonDialog">
-              <template v-slot:activator="{ attrs }">
-                <v-btn
-                  block
-                  variant="flat"
-                  color="primary"
-                  v-on:click="exportEditor"
-                  class="btn btn-primary"
-                  v-bind="attrs"
-                  @click.stop="exportedJsonDialog = true"
-                >
-                  Export
+          <v-dialog v-model="exportedJsonDialog">
+            <template v-slot:activator="{ attrs }">
+              <v-btn
+                block
+                variant="flat"
+                color="primary"
+                v-on:click="exportEditor"
+                v-bind="attrs"
+                @click.stop="exportedJsonDialog = true"
+              >
+                Export
+              </v-btn>
+            </template>
+
+            <v-card width="700">
+              <v-card-title> Exported JSON </v-card-title>
+
+              <v-card-text>
+                <pre>{{ dialogString }}</pre>
+              </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="exportedJsonDialog = false">
+                  Close
                 </v-btn>
-              </template>
-
-              <v-card width="700">
-                <v-card-title> Exported JSON </v-card-title>
-
-                <v-card-text>
-                  <pre>{{ dialogString }}</pre>
-                </v-card-text>
-
-                <v-divider></v-divider>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="primary"
-                    text
-                    @click="exportedJsonDialog = false"
-                  >
-                    Close
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </div>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-list-item>
 
         <v-divider></v-divider>
