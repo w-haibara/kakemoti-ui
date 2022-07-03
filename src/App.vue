@@ -162,98 +162,91 @@ onMounted(() => {
   editor.value.registerNode("Succeed", succeedNode, {}, {});
   editor.value.registerNode("Fail", failNode, {}, {});
 
-  /*
-  editor.value.import({
+  const inputJson = {
     drawflow: {
       Home: {
         data: {
-          3: {
-            id: 3,
-            name: "startNode",
+          1: {
+            id: 1,
+            name: "Start",
             data: {
               key1: "aaa",
             },
-            class: "startNode",
-            html: "startNode",
+            class: "Start",
+            html: "Start",
             typenode: "vue",
             inputs: {},
             outputs: {
               output_1: {
                 connections: [
                   {
-                    node: "4",
+                    node: "2",
                     output: "input_1",
                   },
                 ],
               },
             },
-            pos_x: 24,
-            pos_y: 8,
+            pos_x: 7,
+            pos_y: 55,
           },
-          4: {
-            id: 4,
-            name: "taskNode",
+          2: {
+            id: 2,
+            name: "Task",
             data: {
               key1: "aaa",
             },
-            class: "taskNode",
-            html: "taskNode",
+            class: "Task",
+            html: "Task",
             typenode: "vue",
             inputs: {
               input_1: {
+                connections: [
+                  {
+                    node: "1",
+                    input: "output_1",
+                  },
+                ],
+              },
+            },
+            outputs: {
+              output_1: {
                 connections: [
                   {
                     node: "3",
-                    input: "output_1",
-                  },
-                ],
-              },
-            },
-            outputs: {
-              output_1: {
-                connections: [
-                  {
-                    node: "5",
                     output: "input_1",
                   },
                 ],
               },
             },
-            pos_x: 223,
-            pos_y: 50,
+            pos_x: 260,
+            pos_y: 129,
           },
-          5: {
-            id: 5,
-            name: "taskNode",
-            data: {
-              key1: "aaa",
-            },
-            class: "taskNode",
-            html: "taskNode",
+          3: {
+            id: 3,
+            name: "End",
+            data: {},
+            class: "End",
+            html: "End",
             typenode: "vue",
             inputs: {
               input_1: {
                 connections: [
                   {
-                    node: "4",
+                    node: "2",
                     input: "output_1",
                   },
                 ],
               },
             },
-            outputs: {
-              output_1: {
-                connections: [],
-              },
-            },
-            pos_x: 417,
-            pos_y: 102,
+            outputs: {},
+            pos_x: 512,
+            pos_y: 182,
           },
         },
       },
     },
-  });
-  */
+  };
+  editor.value.import(inputJson);
 });
 </script>
 
