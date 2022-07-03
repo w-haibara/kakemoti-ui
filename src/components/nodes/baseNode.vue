@@ -3,7 +3,7 @@ import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
 
 const internalInstance = getCurrentInstance();
 const uid = ref("base-node-" + internalInstance.uid.toString());
-const dialogId = ref(uid.value + "-dialog-card");
+const dialogId = ref(uid.value + "-dialog-close-btn");
 const editor =
   internalInstance.appContext.app._context.config.globalProperties.$df;
 
