@@ -293,7 +293,7 @@ onMounted(() => {
     <v-main app id="v-main" tabindex="0">
       <div id="drawflow" />
 
-      <v-navigation-drawer app permanent width="130">
+      <v-navigation-drawer app permanent width="140">
         <v-list-item>
           <v-dialog
             v-bind:id="exportDialogId"
@@ -335,17 +335,20 @@ onMounted(() => {
         <v-divider></v-divider>
 
         <v-list nav color="transparent">
-          <div v-for="node in listNodes" :key="node" :data-node="node.item">
-            <v-list-item class="node">
-              <v-btn
-                block
-                variant="outlined"
-                v-on:click="addNodeToDrawFlow(node.item, 190, 270)"
-              >
-                {{ node.name }}
-              </v-btn>
-            </v-list-item>
-          </div>
+          <v-list-item
+            class="node"
+            v-for="(node, index) in listNodes"
+            :key="node"
+            :data-node="node.item"
+            v-on:click="addNodeToDrawFlow(node.item, 190, 270)"
+          >
+            <v-list-item-avatar start>
+              <v-icon>
+                {{ "mdi-numeric-" + (index == 9 ? 0 : index + 1) + "-box" }}
+              </v-icon>
+            </v-list-item-avatar>
+            <v-list-item-title v-text="node.name" />
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
     </v-main>
