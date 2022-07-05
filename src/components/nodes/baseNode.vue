@@ -1,15 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
 
 const internalInstance = getCurrentInstance();
-const uid = ref("base-node-" + internalInstance.uid.toString());
+const uid = ref("base-node-" + internalInstance?.uid.toString());
 const dialogCloseBtnId = ref(uid.value + "-dialog-close-btn");
 const editor =
-  internalInstance.appContext.app._context.config.globalProperties.$df;
+  internalInstance?.appContext.app._context.config.globalProperties.$df;
 
 const nodeId = ref(1);
 const nodeName = ref("");
-const currentNode = ref({});
+const currentNode = ref({ name: "" });
 
 const dialog = ref(false);
 
@@ -21,8 +21,8 @@ const nodeData = ref({
 function getCurrentNodeInfo() {
   const elmId = document
     .getElementById(uid.value)
-    .parentElement.parentElement.getAttribute("id");
-  nodeId.value = elmId.replace(/^node-/, "");
+    ?.parentElement?.parentElement?.getAttribute("id");
+  nodeId.value = Number(elmId?.replace(/^node-/, ""));
   currentNode.value = editor.value.getNodeFromId(nodeId.value);
   nodeName.value = currentNode.value.name;
 }
@@ -36,14 +36,14 @@ async function openEditDialog() {
   dialog.value = true;
 
   await nextTick;
-  document.getElementById(dialogCloseBtnId.value).focus();
+  document.getElementById(dialogCloseBtnId?.value)?.focus();
 }
 
 async function closeEditDialog() {
   dialog.value = false;
 
   await nextTick;
-  document.getElementById("v-main").focus();
+  document.getElementById("v-main")?.focus();
 }
 
 onMounted(async () => {
@@ -66,11 +66,11 @@ onMounted(async () => {
         <v-col>
           <div class="text-center">
             <v-dialog v-model="dialog" persistent width="500">
-              <template v-slot:activator="{ attrs }">
+              <template v-slot:activator="{ isActive }">
                 <v-btn
                   variant="outlined"
                   size="x-small"
-                  v-bind="attrs"
+                  v-bind="isActive"
                   @click.stop="openEditDialog()"
                 >
                   Edit
