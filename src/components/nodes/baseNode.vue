@@ -1,5 +1,20 @@
 <script setup lang="ts">
-import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
+import {
+  withDefaults,
+  defineProps,
+  ref,
+  onMounted,
+  getCurrentInstance,
+  nextTick,
+} from "vue";
+
+interface Props {
+  nodeData: any;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  nodeData: {},
+});
 
 const internalInstance = getCurrentInstance();
 const uid = ref("base-node-" + internalInstance?.uid.toString());
@@ -13,11 +28,6 @@ const currentNode = ref({ name: "" });
 
 const dialog = ref(false);
 
-const nodeDataVar1 = ref("aaa");
-const nodeData = ref({
-  key1: nodeDataVar1,
-});
-
 function getCurrentNodeInfo() {
   const elmId = document
     .getElementById(uid.value)
@@ -28,8 +38,7 @@ function getCurrentNodeInfo() {
 }
 
 function updateNodeData() {
-  nodeData.value.key1 = nodeDataVar1.value;
-  editor.value.updateNodeDataFromId(nodeId.value, nodeData.value);
+  editor.value.updateNodeDataFromId(nodeId.value, props.nodeData);
 }
 
 async function openEditDialog() {
@@ -81,14 +90,7 @@ onMounted(async () => {
                 <v-card-title> {{ nodeName }} </v-card-title>
 
                 <v-card-text>
-                  <v-form>
-                    <v-container>
-                      <v-text-field
-                        label="Regular"
-                        v-model="nodeDataVar1"
-                      ></v-text-field>
-                    </v-container>
-                  </v-form>
+                  <slot></slot>
                 </v-card-text>
 
                 <v-divider></v-divider>
