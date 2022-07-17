@@ -9,11 +9,12 @@ import {
 } from "vue";
 
 interface Props {
-  nodeData: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  nodeData: any;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  nodeData: undefined,
+  nodeData: {},
 });
 
 const internalInstance = getCurrentInstance();
@@ -38,9 +39,7 @@ function getCurrentNodeInfo() {
 }
 
 function updateNodeData() {
-  if (props.nodeData !== undefined) {
-    editor.value.updateNodeDataFromId(nodeId.value, props.nodeData);
-  }
+  editor.value.updateNodeDataFromId(nodeId.value, props.nodeData);
 }
 
 async function openEditDialog() {
