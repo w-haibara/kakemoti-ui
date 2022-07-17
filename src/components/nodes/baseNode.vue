@@ -9,11 +9,11 @@ import {
 } from "vue";
 
 interface Props {
-  nodeData: any;
+  nodeData: unknown;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  nodeData: {},
+  nodeData: undefined,
 });
 
 const internalInstance = getCurrentInstance();
@@ -38,7 +38,9 @@ function getCurrentNodeInfo() {
 }
 
 function updateNodeData() {
-  editor.value.updateNodeDataFromId(nodeId.value, props.nodeData);
+  if (props.nodeData !== undefined) {
+    editor.value.updateNodeDataFromId(nodeId.value, props.nodeData);
+  }
 }
 
 async function openEditDialog() {
