@@ -206,7 +206,7 @@ onMounted(() => {
             id: 1,
             name: "Start",
             data: {
-              key1: "aaa",
+              var1: "",
             },
             class: "Start",
             html: "Start",
@@ -216,21 +216,40 @@ onMounted(() => {
               output_1: {
                 connections: [
                   {
-                    node: "2",
+                    node: "4",
                     output: "input_1",
                   },
                 ],
               },
             },
-            pos_x: 7,
-            pos_y: 55,
+            pos_x: -6.25,
+            pos_y: -52,
           },
-          2: {
-            id: 2,
-            name: "Task",
-            data: {
-              key1: "aaa",
+          3: {
+            id: 3,
+            name: "End",
+            data: {},
+            class: "End",
+            html: "End",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "9",
+                    input: "output_1",
+                  },
+                ],
+              },
             },
+            outputs: {},
+            pos_x: 999.25,
+            pos_y: 312,
+          },
+          4: {
+            id: 4,
+            name: "Task",
+            data: {},
             class: "Task",
             html: "Task",
             typenode: "vue",
@@ -248,35 +267,301 @@ onMounted(() => {
               output_1: {
                 connections: [
                   {
-                    node: "3",
+                    node: "5",
                     output: "input_1",
                   },
                 ],
               },
             },
-            pos_x: 260,
-            pos_y: 129,
+            pos_x: 114.75,
+            pos_y: 92,
           },
-          3: {
-            id: 3,
-            name: "End",
+          5: {
+            id: 5,
+            name: "Parallel",
             data: {},
-            class: "End",
-            html: "End",
+            class: "Parallel",
+            html: "Parallel",
             typenode: "vue",
             inputs: {
               input_1: {
                 connections: [
                   {
-                    node: "2",
+                    node: "4",
                     input: "output_1",
                   },
                 ],
               },
             },
+            outputs: {
+              output_1: {
+                connections: [
+                  {
+                    node: "6",
+                    output: "input_1",
+                  },
+                ],
+              },
+              output_2: {
+                connections: [
+                  {
+                    node: "10",
+                    output: "input_1",
+                  },
+                  {
+                    node: "13",
+                    output: "input_1",
+                  },
+                ],
+              },
+            },
+            pos_x: 135.5,
+            pos_y: 263,
+          },
+          6: {
+            id: 6,
+            name: "Map",
+            data: {},
+            class: "Map",
+            html: "Map",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "5",
+                    input: "output_1",
+                  },
+                ],
+              },
+            },
+            outputs: {
+              output_1: {
+                connections: [
+                  {
+                    node: "7",
+                    output: "input_1",
+                  },
+                ],
+              },
+              output_2: {
+                connections: [
+                  {
+                    node: "12",
+                    output: "input_1",
+                  },
+                  {
+                    node: "14",
+                    output: "input_1",
+                  },
+                ],
+              },
+            },
+            pos_x: 361,
+            pos_y: 114.25,
+          },
+          7: {
+            id: 7,
+            name: "Pass",
+            data: {},
+            class: "Pass",
+            html: "Pass",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "6",
+                    input: "output_1",
+                  },
+                ],
+              },
+            },
+            outputs: {
+              output_1: {
+                connections: [
+                  {
+                    node: "8",
+                    output: "input_1",
+                  },
+                ],
+              },
+            },
+            pos_x: 618,
+            pos_y: -13.25,
+          },
+          8: {
+            id: 8,
+            name: "Wait",
+            data: {},
+            class: "Wait",
+            html: "Wait",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "7",
+                    input: "output_1",
+                  },
+                ],
+              },
+            },
+            outputs: {
+              output_1: {
+                connections: [
+                  {
+                    node: "9",
+                    output: "input_1",
+                  },
+                ],
+              },
+            },
+            pos_x: 753.75,
+            pos_y: 120,
+          },
+          9: {
+            id: 9,
+            name: "Choice",
+            data: {},
+            class: "Choice",
+            html: "Choice",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "8",
+                    input: "output_1",
+                  },
+                ],
+              },
+            },
+            outputs: {
+              output_1: {
+                connections: [
+                  {
+                    node: "3",
+                    output: "input_1",
+                  },
+                ],
+              },
+              output_2: {
+                connections: [
+                  {
+                    node: "11",
+                    output: "input_1",
+                  },
+                ],
+              },
+            },
+            pos_x: 759.75,
+            pos_y: 371,
+          },
+          10: {
+            id: 10,
+            name: "Succeed",
+            data: {},
+            class: "Succeed",
+            html: "Succeed",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "5",
+                    input: "output_2",
+                  },
+                ],
+              },
+            },
             outputs: {},
-            pos_x: 512,
-            pos_y: 182,
+            pos_x: 392,
+            pos_y: 457.75,
+          },
+          11: {
+            id: 11,
+            name: "Fail",
+            data: {},
+            class: "Fail",
+            html: "Fail",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "9",
+                    input: "output_2",
+                  },
+                ],
+              },
+            },
+            outputs: {},
+            pos_x: 1004,
+            pos_y: 472.75,
+          },
+          12: {
+            id: 12,
+            name: "Succeed",
+            data: {},
+            class: "Succeed",
+            html: "Succeed",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "6",
+                    input: "output_2",
+                  },
+                ],
+              },
+            },
+            outputs: {},
+            pos_x: 465,
+            pos_y: 335.75,
+          },
+          13: {
+            id: 13,
+            name: "Succeed",
+            data: {},
+            class: "Succeed",
+            html: "Succeed",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "5",
+                    input: "output_2",
+                  },
+                ],
+              },
+            },
+            outputs: {},
+            pos_x: 284.75,
+            pos_y: 556,
+          },
+          14: {
+            id: 14,
+            name: "Succeed",
+            data: {},
+            class: "Succeed",
+            html: "Succeed",
+            typenode: "vue",
+            inputs: {
+              input_1: {
+                connections: [
+                  {
+                    node: "6",
+                    input: "output_2",
+                  },
+                ],
+              },
+            },
+            outputs: {},
+            pos_x: 576.75,
+            pos_y: 238,
           },
         },
       },
